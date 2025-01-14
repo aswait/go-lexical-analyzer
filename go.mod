@@ -1,4 +1,4 @@
-module gitgub.com/aswait/go-transliterator
+module gitgub.com/aswait/go-lexical-analyzer
 
 go 1.23.1
 

@@ -2,13 +2,14 @@ package screenform
 
 import (
 	"fmt"
+	"strings"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
-	lexicalanalyzer "gitgub.com/aswait/go-transliterator/pkg/lexical-analyzer"
+	lexicalanalyzer "gitgub.com/aswait/go-lexical-analyzer/pkg/lexical-analyzer"
 )
 
 type ScreenFormer interface {
@@ -52,14 +53,21 @@ func NewScreenForm(lexicalanalyzer lexicalanalyzer.LexicalAnalyzerer) *ScreenFor
 		}
 
 		sf.LexicalAnalyzer.SourceLoadFromInput(inputText)
-		result, err := sf.LexicalAnalyzer.Transliterate()
+		_, err := sf.LexicalAnalyzer.Transliterate()
+		if err != nil {
+			sf.OutputField.SetText(fmt.Sprintf("Ошибка: %v", err))
+			return
+		}
+
+		result, err := sf.LexicalAnalyzer.Analyze()
 		if err != nil {
 			sf.OutputField.SetText(fmt.Sprintf("Ошибка: %v", err))
 			return
 		}
 
 		finalMessage := sf.LexicalAnalyzer.Validate()
-		sf.OutputField.SetText(result + "\n" + finalMessage)
+
+		sf.OutputField.SetText(strings.Join(result, "\n") + "\n" + finalMessage)
 	})
 
 	content := container.NewVBox(

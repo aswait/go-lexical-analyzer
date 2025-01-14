@@ -1,9 +1,9 @@
 package run
 
 import (
-	lexicalanalyzer "gitgub.com/aswait/go-transliterator/pkg/lexical-analyzer"
-	sourcetext "gitgub.com/aswait/go-transliterator/pkg/source-text"
-	screenform "gitgub.com/aswait/go-transliterator/screen-form"
+	lexicalanalyzer "gitgub.com/aswait/go-lexical-analyzer/pkg/lexical-analyzer"
+	sourcetext "gitgub.com/aswait/go-lexical-analyzer/pkg/source-text"
+	screenform "gitgub.com/aswait/go-lexical-analyzer/screen-form"
 )
 
 type App struct {
